@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { Button, Modal } from "react-bootstrap";
+import Movimientos from "./Movimientos";
 export default function Form ({addmovimiento,saldoFinal}){
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const [Mensaje, setMensaje] = useState("");
+    const [Titulo, setTitulo] = useState("");
     const [movimiento, setMovimiento] = useState({
         id:"",
         tipoMovimiento: "Tipo de movimiento",
@@ -15,7 +19,7 @@ export default function Form ({addmovimiento,saldoFinal}){
         setMovimiento({ ...movimiento, [e.target.name]: e.target.value });
       };
 
-
+      
 
 
       const agregarmovimiento = () => { // metodo que cambia los valores del objeto 
@@ -24,13 +28,18 @@ export default function Form ({addmovimiento,saldoFinal}){
 
             if(movimiento.tipoMovimiento==="Gasto" && movimiento.Cantidad>saldoFinal)
             {
+                setTitulo("Error")
+                setMensaje("No cuenta con saldo suficiente para realizar este movimiento")
                 setShow(true);
                 
             }
 
             else {
+                setTitulo("Movimiento agregado")
+                setMensaje("Se realizó la operación y se agregó el movimiento")
+                setShow(true);
                 addmovimiento({ ...movimiento, id:uuidv4() }); //id del movimiento
-                alert("El movmiento fue agregado")
+                
 
             }
 
@@ -52,15 +61,17 @@ return (
     <>
     <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-              <Modal.Title>Saldo insuficiente</Modal.Title>
+              <Modal.Title>{Titulo}</Modal.Title>
             </Modal.Header>
-            <Modal.Body><p>No tiene el saldo suficiente para realizar la operación</p></Modal.Body>
+            <Modal.Body><p>{Mensaje}</p></Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleClose}>
                 Cerrar
           </Button>
             </Modal.Footer>
           </Modal>
+
+         
    <div class="form-group form row">
               <div className="col-6 label">
                 <label for="TipoMovimiento" className="labelp">
