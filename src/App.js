@@ -1,23 +1,52 @@
-import logo from './logo.svg';
-import './App.css';
+import Form from "./components/Form";
+import React, { useEffect, useState } from "react";
+import Movimientos from "./components/Movimientos";
+import Movimiento from "./components/Movimiento";
+
 
 function App() {
+  const [movimientos, setMovimientos] = useState([]);
+  const [saldoInicial, setsaldoInicial] = useState(0);
+  const [saldoFinal, setsaldoFinal] = useState(0); 
+  
+
+  const addmovimiento = (movimiento) => {
+    setMovimientos([...movimientos, movimiento]); // agrega un movimiento
+
+  };
+
+  useEffect(() => {
+    let Calculo = 0;
+    Calculo = saldoInicial;
+    movimientos.map((movimiento) => {
+
+      if (movimiento.tipoMovimiento === "Gasto") {
+
+        Calculo = Calculo - movimiento.Cantidad;
+      }
+      else if (movimiento.tipoMovimiento === "Ingreso") {
+        Calculo = parseInt(Calculo) + parseInt(movimiento.Cantidad);
+      }
+
+    });
+    setsaldoFinal(Calculo)
+
+  }, [movimientos, saldoInicial, setMovimientos]);
+
+
+  console.log (movimientos);
   return (
+
+    
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <Form addmovimiento={addmovimiento} saldoFinal={saldoFinal}/> 
+    <Movimientos movimientos={movimientos}/>
+
+    <input onChange= {((e)=>setsaldoInicial(e.target.value))} value={saldoInicial} type="number" placeholder="Saldo inicial"/>
+    <input value={saldoFinal} disabled placeholder="Saldo final"/>
+    
+    
+        
     </div>
   );
 }
