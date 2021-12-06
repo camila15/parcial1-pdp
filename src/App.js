@@ -21,7 +21,7 @@ function App() {
     movimientos.map((movimiento) => {
 
       if (movimiento.tipoMovimiento === "Gasto") {
-
+          alert("calculo");
         Calculo = Calculo - movimiento.Cantidad;
       }
       else if (movimiento.tipoMovimiento === "Ingreso") {
@@ -31,16 +31,40 @@ function App() {
     });
     setsaldoFinal(Calculo)
 
-  }, [movimientos, saldoInicial, setMovimientos]);
+  }, [movimientos, saldoInicial]);
 
 
   console.log (movimientos);
+
+  const eliminarapp = (e) => {
+    setMovimientos(movimientos.filter((movimiento)=>movimiento.id!==e))
+
+  };
+
+  const editarapp = (e) => {
+   movimientos.map((movimiento)=>{ 
+
+      if(movimiento.id===e.id)
+      {
+        movimiento.tipoMovimiento=e.tipoMovimiento
+        movimiento.Nombre =e.Nombre
+        movimiento.Cantidad=e.Cantidad
+      }
+
+
+
+   })
+  };
   return (
 
     
     <div className="App">
     <Form addmovimiento={addmovimiento} saldoFinal={saldoFinal}/> 
-    <Movimientos movimientos={movimientos}/>
+    <Movimientos movimientos={movimientos}
+    eliminarapp={eliminarapp}
+    editarapp={editarapp}/>
+
+    
 
     <input onChange= {((e)=>setsaldoInicial(e.target.value))} value={saldoInicial} type="number" placeholder="Saldo inicial"/>
     <input value={saldoFinal} disabled placeholder="Saldo final"/>
@@ -48,6 +72,8 @@ function App() {
     
         
     </div>
+
+
   );
 }
 

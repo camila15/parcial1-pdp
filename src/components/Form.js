@@ -23,6 +23,7 @@ export default function Form ({addmovimiento,saldoFinal}){
 
 
       const agregarmovimiento = () => { // metodo que cambia los valores del objeto 
+       
 
         if(movimiento.Nombre.trim() && movimiento.Cantidad>0) {
 
