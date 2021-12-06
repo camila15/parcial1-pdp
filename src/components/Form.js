@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Button, Modal } from "react-bootstrap";
 import Movimientos from "./Movimientos";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./Registro.css";
+
 export default function Form ({addmovimiento,saldoFinal}){
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -72,14 +75,18 @@ return (
             </Modal.Footer>
           </Modal>
 
+    <div>  
+    
+       
+          <h3>Registro</h3>
          
    <div class="form-group form row">
-              <div className="col-6 label">
-                <label for="TipoMovimiento" className="labelp">
+              <div className="col-9 label">
+                <label for="TipoMovimiento">
                   Tipo de movimiento
                 </label>
               </div>
-              <div className="col-6 ">
+              <div className="col-9 ">
                 <select
                   class="form-control"
                   id="TipoMovimiento"
@@ -95,12 +102,20 @@ return (
                 </select>
               </div>
             </div>
+    <div class="form-group form row">
+    <div className="col-9 label">
     <div> Nombre</div>
     <input value={movimiento.Nombre} onChange={cambiarmovimiento} name="Nombre" placeholder="Digite nombre"/>
+    <br/><br/>
     <div> Cantidad</div>
     <input type="number"value={movimiento.Cantidad} onChange={cambiarmovimiento} name="Cantidad" placeholder="Digite cantidad"/>
+    <br/><br/>
     <input onClick={agregarmovimiento} type="button" value="Agregar movimiento" />
+    <br/>
     <input onClick={cancelarmovimiento}type="button" value="Cancelar" />
+    </div>   
+    </div> 
+    </div> 
       </>
 )
 

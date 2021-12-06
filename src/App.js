@@ -2,6 +2,7 @@ import Form from "./components/Form";
 import React, { useEffect, useState } from "react";
 import Movimientos from "./components/Movimientos";
 import Movimiento from "./components/Movimiento";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 function App() {
@@ -21,7 +22,7 @@ function App() {
     movimientos.map((movimiento) => {
 
       if (movimiento.tipoMovimiento === "Gasto") {
-          alert("calculo");
+          
         Calculo = Calculo - movimiento.Cantidad;
       }
       else if (movimiento.tipoMovimiento === "Ingreso") {
@@ -58,6 +59,7 @@ function App() {
   return (
 
     
+    
     <div className="App">
     <Form addmovimiento={addmovimiento} saldoFinal={saldoFinal}/> 
     <Movimientos movimientos={movimientos}
@@ -65,9 +67,14 @@ function App() {
     editarapp={editarapp}/>
 
     
-
+  <div class="form-group form row">
+    <div className="col-6 label" >
+    <div>Saldo Inicial</div>
     <input onChange= {((e)=>setsaldoInicial(e.target.value))} value={saldoInicial} type="number" placeholder="Saldo inicial"/>
+    <div>Saldo final</div>
     <input value={saldoFinal} disabled placeholder="Saldo final"/>
+    </div>
+    </div>
     
     
         

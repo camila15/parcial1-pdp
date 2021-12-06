@@ -50,7 +50,7 @@ export default function Movimientos ({movimientos,eliminarapp,editarapp}){
         <>
 
         {Contador} 
-        <table className="table tabla">
+        <table className="table tabla table-bordered">
             {filtrob.map((movimiento) => (
               <Movimiento 
                 movimiento={movimiento}
@@ -65,6 +65,7 @@ export default function Movimientos ({movimientos,eliminarapp,editarapp}){
            
           <input value ={Busqueda}  onChange={handleChangeInput} type ="text" placeholder="Busqueda"/> 
 
+          <br/><br/><br/>
           <label>Todos</label>
           <input type="radio" value="Todos" onChange={handleChangeInputradio} name="filtros" placeholder="Todos"/>
           <label>Ingresos</label>
